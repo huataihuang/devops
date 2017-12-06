@@ -1,10 +1,23 @@
 # HowTo use this dockerfile?
+
 # ------ for example:
 # 1. create image which name "local:centos7"
 # 2. create container which name "dev7"
 # --------------------------------------
 # docker build -t local:centos7 .
 # docker run -itd --hostname dev7 --name dev7 local:centos7
+# --------------------------------------
+
+# ------ for example:
+# 1. create image which name "local:centos7"
+# 2. create volume share-data
+# 3. create container which name "dev7" and use share-data volume
+# --------------------------------------
+# docker build -t local:centos7 .
+# docker volume create share-data
+# docker run -itd --hostname dev7 --name dev7 -v share-data:/data local:centos7
+
+
 
 FROM docker.io/centos:7
 MAINTAINER vincent huatai <vincent@huatai.me>
@@ -17,7 +30,7 @@ RUN yum -y install which sudo openssh-clients openssh-server initscripts
 # ----------
 # If need more utilities, as like follow:
 # ----------
-#yum install which mlocate net-tools rsyslog file ntp ntpdate \
+#RUN yum -y install which sudo mlocate net-tools rsyslog file ntp ntpdate \
 #wget tar bzip2 xz screen sysstat unzip nfs-utils lsof man bind-utils \
 #crontabs openssh-clients openssh-server initscripts
 

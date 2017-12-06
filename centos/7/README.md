@@ -2,7 +2,6 @@ build centos 7 from docker.io:centos:7, and add:
 
 * update system
 * add ssh server
-* add rc-local
 * add $HOME dir's ssh pub key for easy login
 
 # HowTo

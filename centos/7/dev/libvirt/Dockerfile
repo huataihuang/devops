@@ -8,6 +8,12 @@ RUN yum -y install which sudo nmap-ncat mlocate net-tools rsyslog file ntp ntpda
 wget tar bzip2 xz screen sysstat unzip nfs-utils lsof man bind-utils \
 crontabs openssl openssh-clients openssh-server initscripts
 
+# install develop env
+RUN yum groupinstall -y "development tools"
+
+# install rpm utils
+RUN yum install yum-utils rpm-build
+
 # Prepare sshd host key
 RUN ssh-keygen -A
 
@@ -23,6 +29,16 @@ ADD authorized_keys /home/admin/.ssh/authorized_keys
 RUN chown -R admin:admin /home/admin/.ssh
 RUN chmod 600 /home/admin/.ssh/authorized_keys
 RUN chmod 700 /home/admin/.ssh
+
+# rpm env
+User admin
+RUN yumdownloader --source libvirt
+RUN rpmdev-setuptree
+RUN rpm -ivh libvirt-*.src.rpm
+
+# install builddep for libvirt
+User root
+RUN yum-builddep libvirt
 
 # run service sshd & bash console
 EXPOSE 22

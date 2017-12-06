@@ -6,8 +6,9 @@ RUN yum -y update
 
 RUN yum -y install which sudo nmap-ncat mlocate net-tools rsyslog file ntp ntpdate \
 wget tar bzip2 xz screen sysstat unzip nfs-utils lsof man bind-utils \
-crontabs openssh-clients openssh-server initscripts
+crontabs openssl openssh-clients openssh-server initscripts
 
+# install develop env
 RUN yum groupinstall -y "development tools"
 
 # Prepare sshd host key

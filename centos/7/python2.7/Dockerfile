@@ -6,7 +6,10 @@ RUN yum -y update
 
 RUN yum -y install which sudo nmap-ncat mlocate net-tools rsyslog file ntp ntpdate \
 wget tar bzip2 xz screen sysstat unzip nfs-utils lsof man bind-utils \
-crontabs openssh-clients openssh-server initscripts
+crontabs openssl openssh-clients openssh-server initscripts
+
+# some python dependcies need c compiler
+RUN yum groupinstall -y "development tools"
 
 # install pip + virtualenv
 RUN curl https://bootstrap.pypa.io/get-pip.py | python2.7
